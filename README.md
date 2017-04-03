@@ -62,18 +62,17 @@ RUN apt-get install postgresql -y
 RUN apt-get install postgresql-contrib -y
 EXPOSE 5432
 ``` 
-Creamos una subinterfaz que nos permita acceder al mirror y sacar el my_key.pub. Luego hace ping al
-mirror
+Creamos una subinterfaz para poder acceder al mirror.
 * sudo ifconfig enp5s0:0 192.168.131.109
 * ping 192.168.131.36
 
-Sacamos la key del mirror y lo guardamos en la carpta config que se encuentra en el mismo directorio del dockerfile
+Copiamos la llave generada en /tmp en nuestro equipo host.
 
-A partir del archivo dockerfile creamos una imagen docker llamada centos taller_image.
-* docker build -t taller_mirror:0.0.1 .
+A partir del archivo dockerfile creamos una imagen
+* docker build .
 
-A partir de la imagen centos_taller_image:0.0.1 creamos un contenedor. Además mapeamos el puerto 5433 del contenedor al 5432 del host.
-* sudo docker run -it -p 5433:5432 --rm taller_mirror:0.0.1 /bin/bash
+A partir de la imagen creamos un contenedor. Además mapeamos el puerto 5433 del contenedor al 5432 del host.
+* sudo docker run -it -p 5433:5432 --rm $ID_IMAGEN$ /bin/bash
 
 Finalmente obtenemos el contenedor con el servidor postgres instalado. Entramos por consola y verificamos que este instalado verificando la versión instalada.
 * psql –version
