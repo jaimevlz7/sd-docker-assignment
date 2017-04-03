@@ -45,7 +45,7 @@ Exportamos la key para acceder a los repositorios del mirror.
 Corremos el servicio:
 * aptly serve
 
-3. Aprovisionamiento del contenedor docker con postgres:
+3. Contenedor docker con postgres:
 
 Docker:
 ``` 
@@ -66,12 +66,13 @@ Creamos una subinterfaz que nos permita acceder al mirror y sacar el my_key.pub.
 mirror
 * sudo ifconfig enp5s0:0 192.168.131.109
 * ping 192.168.131.36
-* Sacamos la key del mirror y lo guardamos en la carpta config
+
+Sacamos la key del mirror y lo guardamos en la carpta config que se encuentra en el mismo directorio del dockerfile
 
 A partir del archivo dockerfile creamos una imagen docker llamada centos taller_image.
 * docker build -t taller_mirror:0.0.1 .
 
-A partir de la imagen centos_taller_image:0.0.1 creamos un contenedor. Además mapeamos el puerto 5433 del contenedor de al 5432 del host.
+A partir de la imagen centos_taller_image:0.0.1 creamos un contenedor. Además mapeamos el puerto 5433 del contenedor al 5432 del host.
 * sudo docker run -it -p 5433:5432 --rm taller_mirror:0.0.1 /bin/bash
 
 Finalmente obtenemos el contenedor con el servidor postgres instalado. Entramos por consola y verificamos que este instalado verificando la versión instalada.
