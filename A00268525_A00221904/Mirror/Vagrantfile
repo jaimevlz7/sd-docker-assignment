@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.ssh.insert_key = false
+  config.vm.define :mirror do |node|
+    node.vm.box = "trusty"
+    node.vm.network :private_network, ip: "192.168.33.50"
+    node.vm.network :public_network, bridge: "enp5s0", ip: "192.168.131.36", netmask: "255.255.255.0"
+    node.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "1024","--cpus", "1", "--name", "mirror"]
+    end
+  end
+end

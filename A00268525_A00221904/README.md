@@ -9,6 +9,7 @@ Se adiciona el repositorio de aplty a archivo sources.list.
 Se adiciona la key:
 * sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 9E3E53F19C7DE460
 
+
 Se realiza un apt-get update
 * apt-get update
 
