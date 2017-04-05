@@ -77,4 +77,4 @@ A partir de la imagen creamos un contenedor. Además mapeamos el puerto 5433 del
 
 Finalmente obtenemos se comprueba que postgres queda instalado gracias a la instalación en etc/postgresql
 
-![alt tag](http://http://i.imgur.com/mwErGX5.png)
+![img](http://http://i.imgur.com/mwErGX5.png)
