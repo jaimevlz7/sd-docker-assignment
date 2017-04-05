@@ -9,6 +9,7 @@ Se adiciona el repositorio de aplty a archivo sources.list.
 Se adiciona la key:
 * sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 9E3E53F19C7DE460
 
+
 Se realiza un apt-get update
 * apt-get update
 
@@ -45,7 +46,7 @@ Exportamos la key para acceder a los repositorios del mirror.
 Corremos el servicio:
 * aptly serve
 
-3. Contenedor docker con postgres:
+3. Aprovisionamiento del contenedor docker con postgres:
 
 Docker:
 ``` 
@@ -62,17 +63,29 @@ RUN apt-get install postgresql -y
 RUN apt-get install postgresql-contrib -y
 EXPOSE 5432
 ``` 
-Creamos una subinterfaz para poder acceder al mirror.
+Creamos una subinterfaz que nos permita acceder al mirror y sacar el my_key.pub, luego hacemos ping al
+mirror
 * sudo ifconfig enp5s0:0 192.168.131.109
 * ping 192.168.131.36
+* Sacamos la key del mirror y lo guardamos en la carpta config
 
-Copiamos la llave generada en /tmp en nuestro equipo host.
+A partir del archivo dockerfile creamos una imagen docker.
+* docker build -t .
 
-A partir del archivo dockerfile creamos una imagen
-* docker build .
+A partir de la imagen creamos un contenedor. Además mapeamos el puerto 5433 del contenedor de al 5432 del host.
+* sudo docker run -it -p 5433:5432 --rm $IDCONTAINER$ /bin/bash
 
-A partir de la imagen creamos un contenedor. Además mapeamos el puerto 5433 del contenedor al 5432 del host.
-* sudo docker run -it -p 5433:5432 --rm $ID_IMAGEN$ /bin/bash
+Finalmente obtenemos se comprueba que postgres queda instalado gracias a la instalación en etc/postgresql, como se puede ver a continuación:
 
-Finalmente obtenemos el contenedor con el servidor postgres instalado. Entramos por consola y verificamos que este instalado verificando la versión instalada.
-* psql –version
+![img](http://i.imgur.com/mwErGX5.png)
+
+Para probar el correcto funcionamiento del mirror usamos:
+* apt-get clean
+* apt-get update
+
+Y verificamos si nos deja "instalar" el postgres:
+
+* apt-get install postgresql
+* apt-get install postgresql-contrib
+
+![img](http://i.imgur.com/TVxsLI7.png)
