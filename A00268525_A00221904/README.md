@@ -75,6 +75,17 @@ A partir del archivo dockerfile creamos una imagen docker.
 A partir de la imagen creamos un contenedor. Además mapeamos el puerto 5433 del contenedor de al 5432 del host.
 * sudo docker run -it -p 5433:5432 --rm $IDCONTAINER$ /bin/bash
 
-Finalmente obtenemos se comprueba que postgres queda instalado gracias a la instalación en etc/postgresql
+Finalmente obtenemos se comprueba que postgres queda instalado gracias a la instalación en etc/postgresql, como se puede ver a continuación:
 
 ![img](http://i.imgur.com/mwErGX5.png)
+
+Para probar el correcto funcionamiento del mirror usamos:
+* apt-get clean
+* apt-get update
+
+Y verificamos si nos deja "instalar" el postgres:
+
+* apt-get install postgresql
+* apt-get install postgresql-contrib
+
+![img](http://i.imgur.com/TVxsLI7.png)
